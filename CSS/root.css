@@ -1,0 +1,18 @@
+:root {
+  --text: #333;
+  --bg: #fff;
+  --video-opacity: 0.4;
+  --blur-amount: 5px;
+}
+
+.video-blur {
+  filter: blur(var(--blur-amount));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #ddd;
+    --bg: #000;
+    --video-opacity: 0.4;
+  }
+}
