@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google" content="notranslate">
+        <title>ポートフォリオ</title> 
+        <link rel="stylesheet" href="CSS/style.css"> 
+        <link rel="stylesheet" href="CSS/programming_style.css"> 
+    </head> 
+    <body> 
+
+            <div class="grid"> 
+                <div class="grid-item html fade-in" style="color: white;" onclick="showDetails('HTML')">HTML</div> 
+            </div>
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h2 id="modal-title">言語詳細</h2>
+                        <p id="modal-description">詳細情報がここに表示されます。</p> </div>
+                    </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"></script> 
+        <script src="JavaScript/script.js"></script> 
+
+    </body>
+</html>
