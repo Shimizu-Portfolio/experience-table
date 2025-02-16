@@ -1,0 +1,29 @@
+@media (max-width: 768px) {
+  .grid-item {
+    width: calc(100% / 2);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-item {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .flex-item {
+    flex: 1 1 calc(33.33% - 10px);
+  }
+}
+
+@media (max-width: 800px) {
+  .flex-item {
+    flex: 1 1 calc(50% - 10px);
+  }
+}
+
+@media (max-width: 600px) {
+  .flex-item {
+    flex: 1 1 100%;
+  }
+}
