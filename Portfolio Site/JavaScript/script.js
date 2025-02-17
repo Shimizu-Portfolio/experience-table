@@ -1,7 +1,6 @@
-window.onload = function() {
-  window.scrollTo(0, 0);
-};
-
+ // ===============================
+// モーダルの表示と非表示
+// ===============================
 function showDetails(language) {
   const modal = document.getElementById("modal");
   const modalTitle = document.getElementById("modal-title");
@@ -11,18 +10,18 @@ function showDetails(language) {
   console.log(`Fetching details for: ${language}`);
 
   fetch(`programming/${language}.md`)
-    .then((response) => {
+    .then(response => {
       console.log(`Response status for ${language}: ${response.status}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.status}`);
       }
       return response.text();
     })
-    .then((data) => {
+    .then(data => {
       modalDescription.innerHTML = marked(data);
       modal.style.display = "block"; 
     })
-    .catch((error) => {
+    .catch(error => {
       console.error("Error loading language detail:", error);
       modalDescription.textContent = `詳細情報の読み込みに失敗しました: ${error.message}`;
       modal.style.display = "block"; 
@@ -30,35 +29,18 @@ function showDetails(language) {
 }
 
 function closeModal() {
-  const modal = document.getElementById("modal");
-  modal.style.display = "none"; 
+  document.getElementById("modal").style.display = "none"; 
 }
 
-window.onclick = function (event) {
-  const modal = document.getElementById("modal");
-  if (event.target === modal) {
+window.onclick = function(event) {
+  if (event.target === document.getElementById("modal")) {
     closeModal();
   }
 };
 
-const gridItems = document.querySelectorAll('.grid-item');
-
-gridItems.forEach(item => {
-    item.addEventListener('mouseover', () => {
-        const color = item.style.color;
-
-        if (color === 'black') {
-            item.style.textShadow = '2px 2px 4px rgba(255, 255, 255, 0.8)';
-        } else if (color === 'white') {
-            item.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)';
-        }
-    });
-
-    item.addEventListener('mouseout', () => {
-        item.style.textShadow = ''; 
-    });
-});
-
+// ===============================
+// スクロール関連の処理
+// ===============================
 document.addEventListener('scroll', toggleButtons);
 window.addEventListener('load', toggleButtons);
 
@@ -69,7 +51,6 @@ function toggleButtons() {
   const scrollPosition = window.scrollY;
   const headerBottom = document.querySelector('header').getBoundingClientRect().bottom;
   const footerTop = document.querySelector('footer').getBoundingClientRect().top;
-  
   const halfDistance = headerBottom + (footerTop - headerBottom) / 2 + 600;
 
   buttonTop.style.display = scrollPosition > halfDistance ? 'block' : 'none';
@@ -87,20 +68,11 @@ document.querySelector('.scroll-to-bottom').addEventListener('click', () => {
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 });
 
-toggleButtons();
-
-window.addEventListener('load', function() {
-  document.querySelectorAll('.title').forEach(title => {
-      title.classList.add('fade-in');
-  });
-});
-
 document.querySelectorAll('.tag').forEach(tag => {
   tag.addEventListener('click', function(event) {
       event.preventDefault();
       const targetId = this.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
-      targetElement.scrollIntoView({ behavior: 'smooth' });
+      document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
   });
 });
 
@@ -110,17 +82,30 @@ document.querySelectorAll('.scroll-block').forEach(block => {
       const targetElement = document.querySelector(targetClass);
 
       if (targetElement) {
-          const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
-          const offset = 200;
-          const scrollToPosition = elementPosition - offset;
-          window.scrollTo({
-              top: scrollToPosition,
-              behavior: 'smooth'
-          });
+          const scrollToPosition = targetElement.getBoundingClientRect().top + window.scrollY - 200;
+          window.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
       }
   });
 });
 
+// ===============================
+// グリッドアイテムのホバーエフェクト
+// ===============================
+document.querySelectorAll('.grid-item').forEach(item => {
+  item.addEventListener('mouseover', () => {
+    item.style.textShadow = item.style.color === 'black'
+      ? '2px 2px 4px rgba(255, 255, 255, 0.8)'
+      : '2px 2px 4px rgba(0, 0, 0, 0.8)';
+  });
+
+  item.addEventListener('mouseout', () => {
+    item.style.textShadow = ''; 
+  });
+});
+
+// ===============================
+// ナビゲーションバーのアニメーション
+// ===============================
 function animateColor() {
   let step = 0;
   const colors = [
@@ -128,10 +113,9 @@ function animateColor() {
     "rgba(0, 0, 60, 0.8)",   
     "rgba(0, 0, 90, 0.8)",   
     "rgba(0, 0, 120, 0.8)",  
-];
+  ];
   
   let currentColorIndex = 0;
-  let direction = 1;
 
   function updateColor() {
     const nextColorIndex = (currentColorIndex + 1) % colors.length;
@@ -145,51 +129,40 @@ function animateColor() {
       Math.round((currentColor[1] * (1 - ratio)) + (nextColor[1] * ratio))}, ${
       Math.round((currentColor[2] * (1 - ratio)) + (nextColor[2] * ratio))}, 0.8)`;
 
-    step += direction;
+    step = (step + 1) % 100;
 
-    if (step >= 100) {
-      step = 0; 
-      currentColorIndex = nextColorIndex; 
-    } else if (step <= 0) {
-      step = 100; 
-      currentColorIndex = (currentColorIndex - 1 + colors.length) % colors.length; 
-    }
-
-    setTimeout(updateColor, 10); 
+    setTimeout(updateColor, 10);
   }
 
   updateColor();
 }
 
 toggleButton.addEventListener('click', () => {
-  if (navbar.style.left === '0%') {
-      navbar.style.left = '-100%'; 
-  } else {
-      navbar.style.left = '0%'; 
-      animateColor(); 
-  }
+  navbar.style.left = navbar.style.left === '0%' ? '-100%' : '0%'; 
+  animateColor();
 });
 
+// ===============================
+// バブルアニメーション
+// ===============================
 function createBubble() {
   const bubble = document.createElement('div');
   bubble.classList.add('bubble');
-
-  const size = Math.random() * 40 + 10;
-  bubble.style.width = `${size}px`;
-  bubble.style.height = `${size}px`;
+  bubble.style.width = `${Math.random() * 40 + 10}px`;
+  bubble.style.height = bubble.style.width;
   bubble.style.left = `${Math.random() * 100}vw`;
-
   bubble.style.animation = `rise ${Math.random() * 2 + 3}s linear forwards`; 
 
   document.querySelector('.bubble-container').appendChild(bubble);
 
-  bubble.addEventListener('animationend', () => {
-    bubble.remove();
-  });
+  bubble.addEventListener('animationend', () => bubble.remove());
 }
 
 setInterval(createBubble, 250);
 
+// ===============================
+// ライトボックス（画像拡大表示）
+// ===============================
 document.addEventListener('DOMContentLoaded', () => {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
