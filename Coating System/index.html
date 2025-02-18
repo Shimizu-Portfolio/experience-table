@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="editor">
+            <h3>HTML</h3>
+            <textarea id="htmlCode" placeholder="<h1>Hello World!</h1>"></textarea>
+            <h3>CSS</h3>
+            <textarea id="cssCode" placeholder="h1 { color: red; }"></textarea>
+            <h3>JavaScript</h3>
+            <textarea id="jsCode" placeholder="document.querySelector('h1').style.fontSize = '50px';"></textarea>
+        </div> 
+        
+        <div class="output">
+            <h3>出力</h3>
+            <iframe id="outputFrame"></iframe>
+        </div>
+    </div> 
+
+    <script src="script.js"></script> 
+</body>
+</html>
