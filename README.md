@@ -5,8 +5,12 @@
 　現状では、HTML CSS JavaScriptを使用できる。  
 
 ・Marked System  
-　Markdown を HTML に変換するシステムのソースコード  
-　※JavaScriptライブラリ「Marked」を使用  
+　Markdown を HTML に変換するシステム。  
+　※JavaScriptライブラリ「Marked」を使用しています。 　
+
+ ・Omikuji System  
+　ボタンをクリックすると、おみくじの結果を表示するシステム。  
+　結果に応じて、画面上にパーティクル（粒子）がアニメーションで表示される機能も使用した。   
 
  ・Portfolio Site  
 　自己紹介サイト  
